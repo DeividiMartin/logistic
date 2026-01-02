@@ -1,14 +1,23 @@
 package br.com.deividi.domain;
 
+import br.com.deividi.exception.EntregaStatusInvalidoException;
+
+import java.util.UUID;
+
 public class Entrega {
 
-
+    private UUID id;
     private Cliente cliente;
     private StatusEntrega status;
 
     public Entrega(Cliente cliente) {
+        this.id = UUID.randomUUID();
         this.cliente = cliente;
         this.status = StatusEntrega.CRIADA;
+    }
+
+    public UUID getId() {
+        return id;
     }
 
     public Cliente getCliente() {
@@ -21,7 +30,7 @@ public class Entrega {
 
     public void iniciarTransporte() {
         if (this.status != StatusEntrega.CRIADA) {
-            throw new IllegalStateException(
+            throw new EntregaStatusInvalidoException(
                     "Entrega só pode iniciar transporte se estiver CRIADA"
             );
         }
@@ -30,7 +39,7 @@ public class Entrega {
 
     public void finalizarEntrega() {
         if (this.status != StatusEntrega.EM_TRANSPORTE) {
-            throw new IllegalStateException(
+            throw new EntregaStatusInvalidoException(
                     "Entrega só pode ser finalizada se estiver EM_TRANSPORTE"
             );
         }
@@ -39,14 +48,11 @@ public class Entrega {
 
     public void cancelar() {
         if (this.status == StatusEntrega.ENTREGUE) {
-            throw new IllegalStateException(
+            throw new EntregaStatusInvalidoException(
                     "Entrega ENTREGUE não pode ser cancelada"
             );
         }
         this.status = StatusEntrega.CANCELADA;
     }
-
-
-
 
 }
