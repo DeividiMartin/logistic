@@ -2,11 +2,20 @@ package br.com.deividi.service;
 
 import br.com.deividi.domain.Cliente;
 import br.com.deividi.domain.Entrega;
+import br.com.deividi.repository.EntregaRepository;
 
 public class EntregaService {
 
+    private final EntregaRepository entregaRepository;
+
+    public EntregaService(EntregaRepository entregaRepository) {
+        this.entregaRepository = entregaRepository;
+    }
+
     public Entrega criarEntrega(Cliente cliente) {
-        return new Entrega(cliente);
+        Entrega entrega = new Entrega(cliente);
+        entregaRepository.salvar(entrega);
+        return entrega;
     }
 
     public void iniciarTransporte(Entrega entrega) {
