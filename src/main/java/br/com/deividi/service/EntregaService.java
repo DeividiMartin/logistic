@@ -1,8 +1,9 @@
 package br.com.deividi.service;
 
-import br.com.deividi.domain.Cliente;
 import br.com.deividi.domain.Entrega;
+import br.com.deividi.domain.Cliente;
 import br.com.deividi.repository.EntregaRepository;
+import br.com.deividi.exception.RegraNegocioException;
 
 public class EntregaService {
 
@@ -18,15 +19,23 @@ public class EntregaService {
         return entrega;
     }
 
-    public void iniciarTransporte(Entrega entrega) {
+    public void iniciarTransporte(Long entregaId) {
+        Entrega entrega = buscarEntrega(entregaId);
         entrega.iniciarTransporte();
     }
 
-    public void finalizarEntrega(Entrega entrega) {
+    public void finalizarEntrega(Long entregaId) {
+        Entrega entrega = buscarEntrega(entregaId);
         entrega.finalizarEntrega();
     }
 
-    public void cancelarEntrega(Entrega entrega) {
+    public void cancelarEntrega(Long entregaId) {
+        Entrega entrega = buscarEntrega(entregaId);
         entrega.cancelar();
+    }
+
+    private Entrega buscarEntrega(Long entregaId) {
+        return entregaRepository.buscarPorId(entregaId)
+                .orElseThrow(() -> new RegraNegocioException("Entrega não encontrada"));
     }
 }

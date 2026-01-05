@@ -2,21 +2,18 @@ package br.com.deividi.domain;
 
 import br.com.deividi.exception.EntregaStatusInvalidoException;
 
-import java.util.UUID;
-
 public class Entrega {
 
-    private UUID id;
+    private Long id;
     private Cliente cliente;
     private StatusEntrega status;
 
     public Entrega(Cliente cliente) {
-        this.id = UUID.randomUUID();
         this.cliente = cliente;
         this.status = StatusEntrega.CRIADA;
     }
 
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
 
@@ -29,30 +26,23 @@ public class Entrega {
     }
 
     public void iniciarTransporte() {
-        if (this.status != StatusEntrega.CRIADA) {
-            throw new EntregaStatusInvalidoException(
-                    "Entrega só pode iniciar transporte se estiver CRIADA"
-            );
+        if (status != StatusEntrega.CRIADA) {
+            throw new EntregaStatusInvalidoException("Entrega não pode iniciar transporte");
         }
-        this.status = StatusEntrega.EM_TRANSPORTE;
+        status = StatusEntrega.EM_TRANSPORTE;
     }
 
     public void finalizarEntrega() {
-        if (this.status != StatusEntrega.EM_TRANSPORTE) {
-            throw new EntregaStatusInvalidoException(
-                    "Entrega só pode ser finalizada se estiver EM_TRANSPORTE"
-            );
+        if (status != StatusEntrega.EM_TRANSPORTE) {
+            throw new EntregaStatusInvalidoException("Entrega não pode ser finalizada");
         }
-        this.status = StatusEntrega.ENTREGUE;
+        status = StatusEntrega.ENTREGUE;
     }
 
     public void cancelar() {
-        if (this.status == StatusEntrega.ENTREGUE) {
-            throw new EntregaStatusInvalidoException(
-                    "Entrega ENTREGUE não pode ser cancelada"
-            );
+        if (status == StatusEntrega.ENTREGUE) {
+            throw new EntregaStatusInvalidoException("Entrega já foi finalizada");
         }
-        this.status = StatusEntrega.CANCELADA;
+        status = StatusEntrega.CANCELADA;
     }
-
 }
