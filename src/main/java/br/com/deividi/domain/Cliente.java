@@ -2,25 +2,25 @@ package br.com.deividi.domain;
 
 public class Cliente {
 
-    private Long id;
-    private String nome;
-    private String documento;
+    private final String nome;
+    private final String email;
 
-    public Cliente(Long id, String nome, String documento) {
-        this.id = id;
+    public Cliente(String nome, String email) {
+        if (nome == null || nome.isBlank()) {
+            throw new IllegalArgumentException("Nome inválido");
+        }
+        if (email == null || !email.contains("@")) {
+            throw new IllegalArgumentException("Email inválido");
+        }
         this.nome = nome;
-        this.documento = documento;
+        this.email = email;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public String getNome() {
+    public String nome() {
         return nome;
     }
 
-    public String getDocumento() {
-        return documento;
+    public String email() {
+        return email;
     }
 }

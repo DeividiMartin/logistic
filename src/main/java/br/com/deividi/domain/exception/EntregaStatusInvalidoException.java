@@ -1,6 +1,4 @@
-package br.com.deividi.exception;
-
-import br.com.deividi.exception.RegraNegocioException;
+package br.com.deividi.domain.exception;
 
 public class EntregaStatusInvalidoException extends RegraNegocioException {
 
