@@ -1,5 +1,7 @@
 package br.com.deividi.domain;
 
+import br.com.deividi.domain.exception.RegraNegocioException;
+
 public class Cliente {
 
     private String nome;
@@ -27,12 +29,12 @@ public class Cliente {
 
     private void validaNome(String nome) {
         if (nome == null || nome.isEmpty()) {
-            throw  new IllegalArgumentException("Nome é obrigatorio!");
+            throw new RegraNegocioException("Nome é obrigatorio!");
         }
     }
     private void validaCPF(long cpf) {
         if (cpf <= 0){
-            throw new IllegalArgumentException("CPF invalido!");
+            throw new RegraNegocioException("CPF invalido!");
         }
     }
 }

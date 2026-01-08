@@ -1,5 +1,8 @@
 package br.com.deividi.domain;
 
+import br.com.deividi.domain.exception.EntregaStatusInvalidoException;
+import br.com.deividi.domain.exception.RegraNegocioException;
+
 public class Entrega {
 
     private StatusEntrega status;
@@ -44,13 +47,13 @@ public class Entrega {
 
     private void validarCliente(Cliente cliente) {
         if (cliente == null) {
-            throw new IllegalArgumentException("Cliente é obrigatório");
+            throw new RegraNegocioException("Cliente é obrigatório");
         }
     }
 
     private void validarEndereco(Endereco endereco) {
         if (endereco == null) {
-            throw new IllegalArgumentException("Endereço é obrigatório");
+            throw new RegraNegocioException("Endereço é obrigatório");
         }
     }
 

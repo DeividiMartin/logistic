@@ -1,5 +1,7 @@
 package br.com.deividi.domain;
 
+import br.com.deividi.domain.exception.RegraNegocioException;
+
 public class Endereco {
 
     private String estado;
@@ -23,22 +25,22 @@ public class Endereco {
 
     private void validarTexto(String valor, String campo){
         if(valor == null || valor.isBlank()){
-                throw new IllegalArgumentException(campo + " é obrigatorio!");
+            throw new RegraNegocioException(campo + " é obrigatorio!");
         }
 
     }
     private void validarNumero(long numero){
         if(numero <= 0){
-            throw new IllegalArgumentException("Numero do endereço é invalido!");
+            throw new RegraNegocioException("Numero do endereço é invalido!");
         }
     }
     private void validarCep(String cep){
         if(cep == null || cep.isBlank()){
-            throw new IllegalArgumentException("Cep obrigatorio!");
+            throw new RegraNegocioException("Cep obrigatorio!");
         }
         String cepNumeros = cep.replaceAll("\\D","");
         if(cepNumeros.length() != 11){
-            throw new IllegalArgumentException("CEP deve conter 8 dígitos!");
+            throw new RegraNegocioException("CEP deve conter 8 dígitos!");
         }
     }
 
