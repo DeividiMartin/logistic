@@ -36,7 +36,7 @@ public class Entrega {
         this.status = StatusEntrega.FINALIZADA;
     }
 
-    public void cancelar() {
+    public void cancelarEntrega() {
         if (status == StatusEntrega.FINALIZADA) {
             throw new EntregaStatusInvalidoException(
                     "Entrega finalizada não pode ser cancelada"
@@ -60,4 +60,5 @@ public class Entrega {
     public StatusEntrega getStatus() {
         return status;
     }
+
 }
