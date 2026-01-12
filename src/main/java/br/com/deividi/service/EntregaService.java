@@ -6,6 +6,8 @@ import br.com.deividi.domain.Entrega;
 import br.com.deividi.domain.exception.RegraNegocioException;
 import br.com.deividi.repository.EntregaRepository;
 
+import java.util.Optional;
+
 public class EntregaService {
 
 
@@ -22,9 +24,15 @@ public class EntregaService {
     }
 
     public Entrega buscarEntrega(Long id) {
-        return entregaRepository.buscaPorId(id)
-                .orElseThrow(() -> new RegraNegocioException("Entrega não encontrada"));
+        Optional<Entrega> optionalEntrega = entregaRepository.buscaPorId(id);
+
+        if (optionalEntrega.isEmpty()) {
+            throw new RegraNegocioException("Entrega não encontrada");
+        }
+
+        return optionalEntrega.get();
     }
+
 
     public void iniciarTransporte(Long entregaId) {
         Entrega entrega = buscarEntrega(entregaId);

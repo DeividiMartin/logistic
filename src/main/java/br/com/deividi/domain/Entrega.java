@@ -8,6 +8,7 @@ public class Entrega {
     private StatusEntrega status;
     private Cliente cliente;
     private Endereco endereco;
+    private  Long id;
 
     public Entrega(Cliente cliente, Endereco endereco) {
         validarCliente(cliente);
@@ -61,4 +62,11 @@ public class Entrega {
         return status;
     }
 
+    public void definirId(Long idGerado) {
+        this.id = id;
+    }
+
+    public Long getId() {
+        return id;
+    }
 }
