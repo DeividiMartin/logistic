@@ -63,8 +63,17 @@ public class Entrega {
     }
 
     public void definirId(Long idGerado) {
-        this.id = id;
+        if (idGerado == null || idGerado <= 0) {
+            throw new IllegalArgumentException("ID inválido");
+        }
+
+        if (this.id != null) {
+            throw new IllegalStateException("ID já foi definido");
+        }
+
+        this.id = idGerado;
     }
+
 
     public Long getId() {
         return id;

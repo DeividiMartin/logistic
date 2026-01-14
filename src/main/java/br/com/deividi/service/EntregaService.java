@@ -10,9 +10,7 @@ import java.util.Optional;
 
 public class EntregaService {
 
-
     private final EntregaRepository entregaRepository;
-
     public EntregaService(EntregaRepository entregaRepository) {
         this.entregaRepository = entregaRepository;
     }
@@ -33,22 +31,22 @@ public class EntregaService {
         return optionalEntrega.get();
     }
 
-
     public void iniciarTransporte(Long entregaId) {
         Entrega entrega = buscarEntrega(entregaId);
         entrega.iniciarTransporte();
         entregaRepository.atualizar(entrega);
     }
 
-    public void finalizarEntrega(Entrega entrega){
+    public void finalizarEntrega(Long entregaId){
+        Entrega entrega = buscarEntrega(entregaId);
         entrega.finalizarEntrega();
         entregaRepository.atualizar(entrega);
     }
 
-    public void cancelarEntrega(Entrega entrega){
+    public void cancelarEntrega(Long entregaId){
+        Entrega entrega = buscarEntrega(entregaId);
         entrega.cancelarEntrega();
         entregaRepository.atualizar(entrega);
     }
-
 
 }

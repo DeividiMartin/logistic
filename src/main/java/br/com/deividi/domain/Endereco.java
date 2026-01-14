@@ -39,9 +39,6 @@ public class Endereco {
             throw new RegraNegocioException("Cep obrigatorio!");
         }
         String cepNumeros = cep.replaceAll("\\D","");
-        if(cepNumeros.length() != 11){
-            throw new RegraNegocioException("CEP deve conter 8 dígitos!");
-        }
     }
 
     public String getEstado() {
