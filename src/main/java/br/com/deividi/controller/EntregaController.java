@@ -1,9 +1,11 @@
 package br.com.deividi.controller;
+
+import br.com.deividi.controller.dto.CriarEntregaRequest;
+import br.com.deividi.controller.dto.EnderecoRequest;
 import br.com.deividi.domain.Cliente;
 import br.com.deividi.domain.Endereco;
 import br.com.deividi.domain.Entrega;
 import br.com.deividi.service.EntregaService;
-
 
 public class EntregaController {
 
@@ -13,18 +15,19 @@ public class EntregaController {
         this.entregaService = entregaService;
     }
 
-    public Entrega criarEntrega(
-            String nomeCliente,
-            Long cpf,
-            String estado,
-            String cidade,
-            String rua,
-            String cep,
-            int numero
-    ) {
-        Cliente cliente = new Cliente(nomeCliente, cpf);
-        Endereco endereco = new Endereco(estado, cidade, rua, cep, numero);
-
+    public Entrega criarEntrega(CriarEntregaRequest request) {
+        EnderecoRequest enderecoRequest = request.getEndereco();
+        Cliente cliente = new Cliente(
+                request.getNomeCliente(),
+                request.getCpf()
+        );
+        Endereco endereco = new Endereco(
+                enderecoRequest.getEstado(),
+                enderecoRequest.getCidade(),
+                enderecoRequest.getRua(),
+                enderecoRequest.getCep(),
+                enderecoRequest.getNumero()
+        );
         return entregaService.criarEntrega(cliente, endereco);
     }
 
