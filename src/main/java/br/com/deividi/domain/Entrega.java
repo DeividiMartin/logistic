@@ -78,4 +78,12 @@ public class Entrega {
     public Long getId() {
         return id;
     }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public Endereco getEndereco() {
+        return endereco;
+    }
 }

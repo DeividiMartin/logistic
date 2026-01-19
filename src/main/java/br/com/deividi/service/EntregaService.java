@@ -5,9 +5,11 @@ import br.com.deividi.domain.Endereco;
 import br.com.deividi.domain.Entrega;
 import br.com.deividi.domain.exception.RegraNegocioException;
 import br.com.deividi.repository.EntregaRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+@Service
 public class EntregaService {
 
     private final EntregaRepository entregaRepository;
@@ -26,8 +28,8 @@ public class EntregaService {
 
         if (optionalEntrega.isEmpty()) {
             throw new RegraNegocioException("Entrega não encontrada");
-        }
 
+        }
         return optionalEntrega.get();
     }
 

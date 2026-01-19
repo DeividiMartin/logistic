@@ -1,11 +1,13 @@
 package br.com.deividi.repository;
 
 import br.com.deividi.domain.Entrega;
+import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
+@Repository
 public class EntregaRepositoryEmMemoria implements EntregaRepository{
 
     private Long proximoId = 1L;

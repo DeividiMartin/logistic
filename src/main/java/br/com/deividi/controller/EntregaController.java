@@ -2,6 +2,7 @@ package br.com.deividi.controller;
 
 import br.com.deividi.controller.dto.CriarEntregaRequest;
 import br.com.deividi.controller.dto.EnderecoRequest;
+import br.com.deividi.controller.dto.EntregaResponse;
 import br.com.deividi.domain.Cliente;
 import br.com.deividi.domain.Endereco;
 import br.com.deividi.domain.Entrega;
@@ -36,22 +37,22 @@ public class EntregaController {
     }
 
     @GetMapping("/{id}")
-    public Entrega buscarEntrega(Long id) {
-        return entregaService.buscarEntrega(id);
+    public EntregaResponse buscarEntrega(@PathVariable Long id) {
+        Entrega entrega = entregaService.buscarEntrega(id);
+        return new EntregaResponse(entrega);
     }
-
     @PostMapping("/{id}/iniciar")
-    public void iniciarTransporte(Long entregaId) {
+    public void iniciarTransporte(@PathVariable("id") Long entregaId) {
         entregaService.iniciarTransporte(entregaId);
     }
 
     @PostMapping("/{id}/finalizar")
-    public void finalizarEntrega(Long entregaId) {
+    public void FinalizarTransporte(@PathVariable("id") Long entregaId) {
         entregaService.finalizarEntrega(entregaId);
     }
 
     @PostMapping("/{id}/cancelar")
-    public void cancelarEntrega(Long entregaId) {
+    public void cancelarEntrega(@PathVariable ("id") Long entregaId) {
         entregaService.cancelarEntrega(entregaId);
     }
 }
