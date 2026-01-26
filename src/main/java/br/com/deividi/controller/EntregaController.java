@@ -7,6 +7,7 @@ import br.com.deividi.domain.Cliente;
 import br.com.deividi.domain.Endereco;
 import br.com.deividi.domain.Entrega;
 import br.com.deividi.service.EntregaService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -20,7 +21,7 @@ public class EntregaController {
     }
 
     @PostMapping
-    public Entrega criarEntrega(@RequestBody CriarEntregaRequest request) {
+    public Entrega criarEntrega(@RequestBody @Valid CriarEntregaRequest request) {
         EnderecoRequest enderecoRequest = request.getEndereco();
         Cliente cliente = new Cliente(
                 request.getNomeCliente(),

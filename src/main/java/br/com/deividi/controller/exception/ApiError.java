@@ -3,9 +3,9 @@ package br.com.deividi.controller.exception;
 public class ApiError {
 
     private int status;
-    private String erro;
+    private Object erro;
 
-    public ApiError(int status, String erro) {
+    public ApiError(int status, Object erro) {
         this.status = status;
         this.erro = erro;
     }
@@ -14,7 +14,7 @@ public class ApiError {
         return status;
     }
 
-    public String getErro() {
+    public Object getErro() {
         return erro;
     }
 }
