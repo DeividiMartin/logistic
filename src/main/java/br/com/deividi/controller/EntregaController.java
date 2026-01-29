@@ -3,6 +3,7 @@ package br.com.deividi.controller;
 import br.com.deividi.controller.dto.CriarEntregaRequest;
 import br.com.deividi.controller.dto.EnderecoRequest;
 import br.com.deividi.controller.dto.EntregaResponse;
+import br.com.deividi.controller.mapper.EntregaMapper;
 import br.com.deividi.domain.Cliente;
 import br.com.deividi.domain.Endereco;
 import br.com.deividi.domain.Entrega;
@@ -21,26 +22,31 @@ public class EntregaController {
     }
 
     @PostMapping
-    public Entrega criarEntrega(@RequestBody @Valid CriarEntregaRequest request) {
-        EnderecoRequest enderecoRequest = request.getEndereco();
+    public EntregaResponse criarEntrega(@RequestBody @Valid CriarEntregaRequest request) {
+
         Cliente cliente = new Cliente(
                 request.getNomeCliente(),
                 request.getCpf()
         );
+
         Endereco endereco = new Endereco(
-                enderecoRequest.getEstado(),
-                enderecoRequest.getCidade(),
-                enderecoRequest.getRua(),
-                enderecoRequest.getCep(),
-                enderecoRequest.getNumero()
+                request.getEndereco().getEstado(),
+                request.getEndereco().getCidade(),
+                request.getEndereco().getRua(),
+                request.getEndereco().getCep(),
+                request.getEndereco().getNumero()
         );
-        return entregaService.criarEntrega(cliente, endereco);
+
+        Entrega entrega = entregaService.criarEntrega(cliente, endereco);
+
+        return EntregaMapper.toResponse(entrega);
     }
+
 
     @GetMapping("/{id}")
     public EntregaResponse buscarEntrega(@PathVariable Long id) {
         Entrega entrega = entregaService.buscarEntrega(id);
-        return new EntregaResponse(entrega);
+        return EntregaMapper.toResponse(entrega);
     }
     @PostMapping("/{id}/iniciar")
     public void iniciarTransporte(@PathVariable("id") Long entregaId) {
