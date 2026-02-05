@@ -1,17 +1,30 @@
 package br.com.deividi.domain;
 
-import br.com.deividi.domain.exception.RegraNegocioException;
+import jakarta.persistence.*;
 
+@Entity
+@Table(name = "clientes")
 public class Cliente {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     private String nome;
+
     private long cpf;
 
+    protected Cliente() {
+        // obrigatório para JPA
+    }
+
     public Cliente(String nome, long cpf) {
-        validaNome(nome);
-        validaCPF(cpf);
         this.nome = nome;
         this.cpf = cpf;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getNome() {
@@ -20,21 +33,5 @@ public class Cliente {
 
     public long getCpf() {
         return cpf;
-    }
-
-    public void alterarNome(String novoNome) {
-        validaNome(novoNome);
-        this.nome = novoNome;
-    }
-
-    private void validaNome(String nome) {
-        if (nome == null || nome.isEmpty()) {
-            throw new RegraNegocioException("Nome é obrigatorio!");
-        }
-    }
-    private void validaCPF(long cpf) {
-        if (cpf <= 0){
-            throw new RegraNegocioException("CPF invalido!");
-        }
     }
 }

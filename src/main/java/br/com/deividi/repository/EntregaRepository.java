@@ -4,11 +4,7 @@ import br.com.deividi.domain.Entrega;
 
 import java.util.Optional;
 
-public interface EntregaRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
 
-    void salvar(Entrega entrega);
-
-    Optional<Entrega> buscaPorId(Long id);
-
-    void atualizar(Entrega entrega);
+public interface EntregaRepository extends JpaRepository<Entrega, Long> {
 }

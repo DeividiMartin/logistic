@@ -24,13 +24,8 @@ public class EntregaService {
     }
 
     public Entrega buscarEntrega(Long id) {
-        Optional<Entrega> optionalEntrega = entregaRepository.buscaPorId(id);
-
-        if (optionalEntrega.isEmpty()) {
-            throw new RegraNegocioException("Entrega não encontrada");
-
-        }
-        return optionalEntrega.get();
+        return entregaRepository.findById(id)
+                .orElseThrow(() -> new RegraNegocioException("Entrega não encontrada"));
     }
 
     public void iniciarTransporte(Long entregaId) {

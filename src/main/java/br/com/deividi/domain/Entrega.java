@@ -2,18 +2,33 @@ package br.com.deividi.domain;
 
 import br.com.deividi.domain.exception.EntregaStatusInvalidoException;
 import br.com.deividi.domain.exception.RegraNegocioException;
+import jakarta.persistence.*;
 
+@Entity
+@Table(name = "entregas")
 public class Entrega {
 
+    @Enumerated(EnumType.STRING)
     private StatusEntrega status;
+
+    @ManyToOne
     private Cliente cliente;
+
+    @Embedded
     private Endereco endereco;
+
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private  Long id;
+
+    protected Entrega() {
+
+    }
 
     public Entrega(Cliente cliente, Endereco endereco) {
         validarCliente(cliente);
         validarEndereco(endereco);
-
         this.cliente = cliente;
         this.endereco = endereco;
         this.status = StatusEntrega.CRIADA;
@@ -61,19 +76,6 @@ public class Entrega {
     public StatusEntrega getStatus() {
         return status;
     }
-
-    public void definirId(Long idGerado) {
-        if (idGerado == null || idGerado <= 0) {
-            throw new IllegalArgumentException("ID inválido");
-        }
-
-        if (this.id != null) {
-            throw new IllegalStateException("ID já foi definido");
-        }
-
-        this.id = idGerado;
-    }
-
 
     public Long getId() {
         return id;
