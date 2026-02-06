@@ -19,8 +19,7 @@ public class EntregaService {
 
     public Entrega criarEntrega(Cliente cliente, Endereco endereco) {
         Entrega entrega = new Entrega(cliente, endereco);
-        entregaRepository.salvar(entrega);
-        return entrega;
+        return entregaRepository.save(entrega);
     }
 
     public Entrega buscarEntrega(Long id) {
@@ -31,19 +30,19 @@ public class EntregaService {
     public void iniciarTransporte(Long entregaId) {
         Entrega entrega = buscarEntrega(entregaId);
         entrega.iniciarTransporte();
-        entregaRepository.atualizar(entrega);
+        entregaRepository.save(entrega);
     }
 
     public void finalizarEntrega(Long entregaId){
         Entrega entrega = buscarEntrega(entregaId);
         entrega.finalizarEntrega();
-        entregaRepository.atualizar(entrega);
+        entregaRepository.save(entrega);
     }
 
     public void cancelarEntrega(Long entregaId){
         Entrega entrega = buscarEntrega(entregaId);
         entrega.cancelarEntrega();
-        entregaRepository.atualizar(entrega);
+        entregaRepository.save(entrega);
     }
 
 }

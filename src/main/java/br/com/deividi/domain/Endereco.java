@@ -1,7 +1,9 @@
 package br.com.deividi.domain;
 
 import br.com.deividi.domain.exception.RegraNegocioException;
+import jakarta.persistence.Embeddable;
 
+@Embeddable
 public class Endereco {
 
     private String estado;
@@ -9,6 +11,8 @@ public class Endereco {
     private String rua;
     private String cep;
     private int numero;
+
+    public Endereco(){};
 
     public Endereco(String estado, String cidade, String rua, String cep, int numero) {
         validarTexto(estado, "estado");
