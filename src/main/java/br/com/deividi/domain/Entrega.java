@@ -12,11 +12,11 @@ public class Entrega {
     private StatusEntrega status;
 
     @ManyToOne
+    @JoinColumn(name = "cliente_id", nullable = false)
     private Cliente cliente;
 
     @Embedded
     private Endereco endereco;
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -53,7 +53,7 @@ public class Entrega {
     }
 
     public void cancelarEntrega() {
-        if (status == StatusEntrega.FINALIZADA) {
+        if (status == StatusEntrega.EM_TRANSPORTE) {
             throw new EntregaStatusInvalidoException(
                     "Entrega finalizada não pode ser cancelada"
             );
