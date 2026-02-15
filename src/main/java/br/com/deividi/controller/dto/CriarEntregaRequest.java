@@ -9,11 +9,9 @@ import org.hibernate.validator.constraints.br.CPF;
 public class CriarEntregaRequest {
 
     @NotBlank(message = "Nome do cliente é obrigatório")
-    @Size (min = 3, max = 20, message = "Nome deve conter entre 3 e 20 caracteres")
     private String nomeCliente;
 
     @NotNull(message = "CPF é obrigatório")
-    @CPF (message = "CPF não é valido")
     private Long cpf;
 
     @NotNull(message = "Endereço é obrigatório")
