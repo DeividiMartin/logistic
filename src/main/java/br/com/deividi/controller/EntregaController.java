@@ -53,7 +53,7 @@ public class EntregaController {
     }
 
     @PostMapping("/{id}/finalizar")
-    public void FinalizarTransporte(@PathVariable("id") Long entregaId) {
+    public void finalizarTransporte(@PathVariable("id") Long entregaId) {
         entregaService.finalizarEntrega(entregaId);
     }
 

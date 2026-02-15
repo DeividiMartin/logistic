@@ -6,8 +6,6 @@ import br.com.deividi.domain.Entrega;
 import br.com.deividi.domain.StatusEntrega;
 import br.com.deividi.repository.EntregaRepository;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 

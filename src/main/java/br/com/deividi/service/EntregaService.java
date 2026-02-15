@@ -7,8 +7,6 @@ import br.com.deividi.domain.exception.RegraNegocioException;
 import br.com.deividi.repository.EntregaRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Service
 public class EntregaService {
 
