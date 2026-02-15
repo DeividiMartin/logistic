@@ -42,7 +42,10 @@ public class Endereco {
         if(cep == null || cep.isBlank()){
             throw new RegraNegocioException("Cep obrigatorio!");
         }
-        String cepNumeros = cep.replaceAll("\\D","");
+        String cepNumeros = cep.replaceAll("\\D", "");
+        if (cepNumeros.length() != 8) {
+            throw new RegraNegocioException("Cep deve ter 8 dígitos!");
+        }
     }
 
     public String getEstado() {

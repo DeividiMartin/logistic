@@ -1,7 +1,6 @@
 package br.com.deividi.controller;
 
 import br.com.deividi.controller.dto.CriarEntregaRequest;
-import br.com.deividi.controller.dto.EnderecoRequest;
 import br.com.deividi.controller.dto.EntregaResponse;
 import br.com.deividi.controller.mapper.EntregaMapper;
 import br.com.deividi.domain.Cliente;
