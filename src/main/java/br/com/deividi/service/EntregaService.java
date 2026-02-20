@@ -3,6 +3,7 @@ package br.com.deividi.service;
 import br.com.deividi.domain.Cliente;
 import br.com.deividi.domain.Endereco;
 import br.com.deividi.domain.Entrega;
+import br.com.deividi.domain.exception.EntregaNaoEncontradaException;
 import br.com.deividi.domain.exception.RegraNegocioException;
 import br.com.deividi.repository.ClienteRepository;
 import br.com.deividi.repository.EntregaRepository;
@@ -22,14 +23,16 @@ public class EntregaService {
 
     @Transactional
     public Entrega criarEntrega(Cliente cliente, Endereco endereco) {
-        Cliente clientePersistido = clienteRepository.save(cliente);
+
+        Cliente clientePersistido = clienteRepository.findByCpf(cliente.getCpf())
+                .orElseGet(() -> clienteRepository.save(cliente));
         Entrega entrega = new Entrega(clientePersistido, endereco);
         return entregaRepository.save(entrega);
     }
 
     public Entrega buscarEntrega(Long id) {
         return entregaRepository.findById(id)
-                .orElseThrow(() -> new RegraNegocioException("Entrega não encontrada"));
+                .orElseThrow(() -> new EntregaNaoEncontradaException("Entrega não encontrada"));
     }
 
     public void iniciarTransporte(Long entregaId) {
@@ -39,15 +42,15 @@ public class EntregaService {
     }
 
     public void finalizarEntrega(Long entregaId){
-        Entrega entrega = buscarEntrega(entregaId);
-        entrega.finalizarEntrega();
-        entregaRepository.save(entrega);
-    }
+            Entrega entrega = buscarEntrega(entregaId);
+            entrega.finalizarEntrega();
+            entregaRepository.save(entrega);
+        }
 
-    public void cancelarEntrega(Long entregaId){
-        Entrega entrega = buscarEntrega(entregaId);
-        entrega.cancelarEntrega();
-        entregaRepository.save(entrega);
-    }
+        public void cancelarEntrega(Long entregaId){
+                Entrega entrega = buscarEntrega(entregaId);
+                entrega.cancelarEntrega();
+                entregaRepository.save(entrega);
+            }
 
-}
+        }

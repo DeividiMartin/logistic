@@ -8,7 +8,7 @@ public class EntregaResponse {
     private Long id;
     private StatusEntrega status;
     private String nomeCliente;
-    private long cpf;
+    private String cpf;
     private String estado;
     private String cidade;
     private String rua;
@@ -56,11 +56,11 @@ public class EntregaResponse {
         this.nomeCliente = nomeCliente;
     }
 
-    public Long getCpf() {
+    public String getCpf() {
         return cpf;
     }
 
-    public void setCpf(Long cpf) {
+    public void setCpf(String cpf) {
         this.cpf = cpf;
     }
 

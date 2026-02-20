@@ -53,9 +53,9 @@ public class Entrega {
     }
 
     public void cancelarEntrega() {
-        if (status == StatusEntrega.EM_TRANSPORTE) {
+        if (status == StatusEntrega.EM_TRANSPORTE || status == StatusEntrega.FINALIZADA || status == StatusEntrega.CANCELADA) {
             throw new EntregaStatusInvalidoException(
-                    "Entrega em transporte não pode ser cancelada"
+                    "Entrega só pode ser cancelada se estiver CRIADA"
             );
         }
         this.status = StatusEntrega.CANCELADA;

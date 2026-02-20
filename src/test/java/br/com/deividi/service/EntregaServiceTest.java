@@ -13,9 +13,8 @@ import static org.mockito.Mockito.*;
 class EntregaServiceTest {
 
     @Test
-    void deveCriarEntregaComStatusCriada() {
-
-        Cliente cliente = new Cliente("Cliente Teste", 12345678901L);
+    void deveIniciarTransporteQuandoEntregaCriada() {
+        Cliente cliente = new Cliente("Cliente Teste", "12345678909");
         Endereco endereco = new Endereco("SP", "Campinas", "Rua A", "13000000", 10);
 
         Entrega entrega = new Entrega(cliente, endereco);
@@ -28,12 +27,23 @@ class EntregaServiceTest {
     @Test
     void naoDeveIniciarTransporteSeStatusInvalido() {
 
-        Cliente cliente = new Cliente("Cliente Teste", 12345678901L);
+        Cliente cliente = new Cliente("Cliente Teste", "12345678909");
         Endereco endereco = new Endereco("SP", "Campinas", "Rua A", "13000000", 10);
 
         Entrega entrega = new Entrega(cliente, endereco);
         entrega.iniciarTransporte();
 
         assertThrows(EntregaStatusInvalidoException.class, entrega::iniciarTransporte);
+    }
+
+    @Test
+    void naoDeveCancelarEntregaFinalizada() {
+        Cliente cliente = new Cliente("Cliente Teste", "12345678909");
+        Endereco endereco = new Endereco("SP", "Campinas", "Rua A", "13000000", 10);
+        Entrega entrega = new Entrega(cliente, endereco);
+        entrega.iniciarTransporte();
+        entrega.finalizarEntrega();
+
+        assertThrows(EntregaStatusInvalidoException.class, entrega::cancelarEntrega);
     }
 }
